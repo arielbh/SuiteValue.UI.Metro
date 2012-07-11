@@ -9,6 +9,18 @@ using Windows.UI.Xaml.Controls;
 
 namespace CodeValue.SuiteValue.UI.Metro.Controls
 {
+    public delegate void ValueChangedEventHandler(object sender, ValueChangedEventArgs e);
+    public class ValueChangedEventArgs : EventArgs
+    {
+        public DateTime OldValue { get; private set; }
+        public DateTime NewValue { get; private set; }
+
+        public ValueChangedEventArgs(DateTime oldValue, DateTime newValue)
+        {
+            OldValue = oldValue;
+            NewValue = newValue;
+        }
+    }
 
     public sealed class DatePicker : Control, INotifyPropertyChanged
     {
@@ -88,8 +100,10 @@ namespace CodeValue.SuiteValue.UI.Metro.Controls
                 {
                     SelectedDay = daysinMonth;
                 }
+                var oldValue = Value;
                 var date = new DateTime(SelectedYear, SelectedMonth + 1, SelectedDay, Value.Hour, Value.Minute, Value.Second, Value.Kind);
                 Value = date;
+                OnValueChanged(new ValueChangedEventArgs(oldValue, Value));
             }
 
         }
@@ -191,6 +205,15 @@ namespace CodeValue.SuiteValue.UI.Metro.Controls
 
             }
         }
+
+        public event ValueChangedEventHandler ValueChanged;
+
+        private void OnValueChanged(ValueChangedEventArgs e)
+        {
+            ValueChangedEventHandler handler = ValueChanged;
+            if (handler != null) handler(this, e);
+        }
+
 
         public readonly string[] MonthsNames = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
 

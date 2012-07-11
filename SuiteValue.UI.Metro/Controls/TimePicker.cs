@@ -70,9 +70,11 @@ namespace CodeValue.SuiteValue.UI.Metro.Controls
         {
             if (_minutes != null)
             {
+                var oldValue = Value;
                 var date = new DateTime(Value.Year, Value.Month, Value.Day, SelectedHour, SelectedMinutes, Value.Second,
                                         Value.Kind);
                 Value = date;
+                OnValueChanged(new ValueChangedEventArgs(oldValue, Value));
             }
         }
 
@@ -199,6 +201,7 @@ namespace CodeValue.SuiteValue.UI.Metro.Controls
                 {
                     _selectedPeriod = value;
                     OnPropertyChanged("SelectedPeriod");
+                    UpdateToValue();
                 }
             }
         }
@@ -212,7 +215,13 @@ namespace CodeValue.SuiteValue.UI.Metro.Controls
 
         }
 
+        public event ValueChangedEventHandler ValueChanged;
 
+        private void OnValueChanged(ValueChangedEventArgs e)
+        {
+            ValueChangedEventHandler handler = ValueChanged;
+            if (handler != null) handler(this, e);
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

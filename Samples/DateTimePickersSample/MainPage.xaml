@@ -1,0 +1,35 @@
+﻿<Page
+    x:Class="DateTimePickersSample.MainPage"
+    IsTabStop="false"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DateTimePickersSample"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Controls="using:CodeValue.SuiteValue.UI.Metro.Controls" mc:Ignorable="d">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+
+        
+        </Grid.RowDefinitions>
+        <Controls:DatePicker  Value="{Binding MyValue, Mode=TwoWay}" ValueChanged="ValueChanged" />
+        <Controls:TimePicker Grid.Row="1" Value="{Binding MyValue, Mode=TwoWay}" ValueChanged="ValueChanged" />
+        <Controls:TimePicker Grid.Row="2" Value="{Binding MyValue, Mode=TwoWay}" ValueChanged="ValueChanged" Kind="H24" />
+
+        
+        <TextBlock Text="{Binding MyValue}" Grid.Row="3" FontSize="20"/>
+        <TextBlock x:Name="textblock"  Grid.Row="4" FontSize="20"/>
+
+
+
+    
+
+        
+    </Grid>
+</Page>

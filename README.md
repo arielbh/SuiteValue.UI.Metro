@@ -11,7 +11,7 @@ SuiteValue.UI.Metro is a framework targeting WinRT XAML/C# Metro development, an
 ## Using the framework
 
 There are nuget packages you can consume that will help you get started.
-
+Also Samples are available, as of now, a sample for using the Time/Date Pickers exists to your leisure. More samples are expected to be added soon.
 ## Contact
 
 Contact me at twitter : @arielbh.
