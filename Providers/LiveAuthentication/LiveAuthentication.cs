@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Composition;
 using System.Threading.Tasks;
-using CodeValue.SuiteValue.UI.Metro.Authentication;
+using CodeValue.SuiteValue.UI.Metro.Authentications;
 using Microsoft.Live;
 
 namespace CodeValue.SuiteValue.UI.Metro.LiveAuthentication
@@ -25,7 +25,7 @@ namespace CodeValue.SuiteValue.UI.Metro.LiveAuthentication
                 var client = new LiveConnectClient(session);
                 var liveOpResult = await client.GetAsync("me");
                 dynamic dynResult = liveOpResult.Result;
-                return new UserInfo {Id = dynResult.id, DisplayName  = dynResult.name, Name = dynResult.name};
+                return new UserInfo {Id = dynResult.id, UserName  = dynResult.name, Name = dynResult.name};
             }
             return null;
         }

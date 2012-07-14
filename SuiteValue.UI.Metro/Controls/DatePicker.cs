@@ -26,7 +26,8 @@ namespace CodeValue.SuiteValue.UI.Metro.Controls
     {
         public DatePicker()
         {
-            this.DefaultStyleKey = typeof(DatePicker);
+            DefaultStyleKey = typeof(DatePicker);
+            Value = DateTime.Now;
         }
 
         public DateTime Value
@@ -43,7 +44,10 @@ namespace CodeValue.SuiteValue.UI.Metro.Controls
         private static void UpdateValue(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (e.OldValue != e.NewValue)
-                (d as DatePicker).UpdateByDateTime((DateTime)e.NewValue);
+            {
+                var datePicker = d as DatePicker;
+                if (datePicker != null) datePicker.UpdateByDateTime((DateTime)e.NewValue);
+            }
         }
 
 
@@ -77,10 +81,10 @@ namespace CodeValue.SuiteValue.UI.Metro.Controls
             _selectedYear = Value.Year;
 
             _months = GetTemplateChild("Months") as ComboBox;
-            _months.ItemsSource = MonthsNames;
+            if (_months != null) _months.ItemsSource = MonthsNames;
             _days = GetTemplateChild("Days") as ComboBox;
             _years = GetTemplateChild("Years") as ComboBox;
-            _years.ItemsSource = Enumerable.Range(DateTime.Now.Year - 100, 200);
+            if (_years != null) _years.ItemsSource = Enumerable.Range(DateTime.Now.Year - 100, 200);
 
             UpdateByDateTime(Value);
 
@@ -92,16 +96,16 @@ namespace CodeValue.SuiteValue.UI.Metro.Controls
 
         private void UpdateToValue()
         {
-            if (_years != null && _months != null && _days != null)
+            if (_years != null && _months != null && _days != null && SelectedYear.HasValue && SelectedMonth.HasValue && SelectedDay.HasValue)
             // && _years.SelectedItem != null && _months.SelectedItem != null && _days.SelectedItem != null)
             {
-                var daysinMonth = DateTime.DaysInMonth(SelectedYear, SelectedMonth + 1);
+                var daysinMonth = DateTime.DaysInMonth(SelectedYear.Value, SelectedMonth.Value + 1);
                 if (SelectedDay > daysinMonth)
                 {
                     SelectedDay = daysinMonth;
                 }
                 var oldValue = Value;
-                var date = new DateTime(SelectedYear, SelectedMonth + 1, SelectedDay, Value.Hour, Value.Minute, Value.Second, Value.Kind);
+                var date = new DateTime(SelectedYear.Value, SelectedMonth.Value + 1, SelectedDay.Value, Value.Hour, Value.Minute, Value.Second, Value.Kind);
                 Value = date;
                 OnValueChanged(new ValueChangedEventArgs(oldValue, Value));
             }
@@ -144,7 +148,7 @@ namespace CodeValue.SuiteValue.UI.Metro.Controls
             get { return _daysOptions; }
             set
             {
-                if (value != _daysOptions)
+                if (!Equals(value, _daysOptions))
                 {
                     _daysOptions = value;
                     OnPropertyChanged("DaysOptions");
@@ -152,9 +156,9 @@ namespace CodeValue.SuiteValue.UI.Metro.Controls
             }
         }
 
-        private int _selectedYear = DateTime.Now.Year;
+        private int? _selectedYear = DateTime.Now.Year;
 
-        public int SelectedYear
+        public int? SelectedYear
         {
             get { return _selectedYear; }
             set
@@ -170,9 +174,9 @@ namespace CodeValue.SuiteValue.UI.Metro.Controls
             }
         }
 
-        private int _selectedDay = 1;
+        private int? _selectedDay = 1;
 
-        public int SelectedDay
+        public int? SelectedDay
         {
             get { return _selectedDay; }
             set
@@ -187,9 +191,9 @@ namespace CodeValue.SuiteValue.UI.Metro.Controls
             }
         }
 
-        private int _selectedMonth = 0;
+        private int? _selectedMonth = 0;
 
-        public int SelectedMonth
+        public int? SelectedMonth
         {
             get { return _selectedMonth; }
             set

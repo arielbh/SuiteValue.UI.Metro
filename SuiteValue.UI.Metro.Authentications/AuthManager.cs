@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Composition;
 using System.Composition.Hosting;
@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace CodeValue.SuiteValue.UI.Metro.Authentication
+namespace CodeValue.SuiteValue.UI.Metro.Authentications
 {
     public class AuthManager
     {

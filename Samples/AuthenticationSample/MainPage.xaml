@@ -1,0 +1,49 @@
+﻿<Page
+    x:Class="AuthenticationSample.MainPage"
+    IsTabStop="false"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AuthenticationSample"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Authentication Sample:" FontSize="35"/>
+        <Button Content="Find Providers" Command="{Binding FindProvidersCommand}" Grid.Row="1"/>
+        <ListBox ItemsSource="{Binding Providers}" SelectedItem="{Binding SelectedProvider, Mode=TwoWay}" Grid.Row="2">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Provider.Name}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ContentControl Content="{Binding SelectedProvider}" Grid.Row="2" Grid.Column="1" Visibility="{Binding DisplayDetails}">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Provider.Name}" FontSize="25"/>
+                        <Button Content="Authenticate" Command="{Binding AuthenticateCommand}"/>
+                        <TextBlock Text="{Binding UserInfo.Id}" FontSize="25"/>
+                        <TextBlock Text="{Binding UserInfo.Name}" FontSize="25"/>
+                        <TextBlock Text="{Binding UserInfo.UserName}" FontSize="25"/>
+                        <TextBlock Text="{Binding Message}" FontSize="25"/>
+
+                    
+                    </StackPanel>
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
+    </Grid>
+</Page>

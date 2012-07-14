@@ -3,7 +3,7 @@ using System.Composition;
 using System.Net.Http;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
-using CodeValue.SuiteValue.UI.Metro.Authentication;
+using CodeValue.SuiteValue.UI.Metro.Authentications;
 using Newtonsoft.Json;
 using Windows.Security.Authentication.Web;
 
@@ -37,17 +37,19 @@ namespace CodeValue.SuiteValue.UI.Metro.FacebookAuthentication
                                                     startUri,
                                                     endUri);
             if (webAuthenticationResult.ResponseStatus == WebAuthenticationStatus.Success)
-            {
+            {                                             
                 var target = "access_token=";
+                var expires = "&expires";
+                var expiresIndex = webAuthenticationResult.ResponseData.IndexOf(expires);
                 var index = webAuthenticationResult.ResponseData.IndexOf(target) + target.Length;
-                var token = webAuthenticationResult.ResponseData.Substring(index, 114);
+                var token = webAuthenticationResult.ResponseData.Substring(index, expiresIndex - index);
 
                 var client = new HttpClient();
                 var result = await client.GetAsync(UserUrl+"?access_token=" + token);
                 result.EnsureSuccessStatusCode();
                 var json = await result.Content.ReadAsStringAsync();
                 var user = JsonConvert.DeserializeObject<User>(json);
-                return new UserInfo { Id = user.id, Name = user.name, DisplayName = user.username };
+                return new UserInfo { Id = user.id, Name = user.name, UserName = user.username };
             }
             return null;
         }

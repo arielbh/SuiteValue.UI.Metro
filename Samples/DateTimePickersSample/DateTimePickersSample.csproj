@@ -152,36 +152,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\MvvmLightLibs.4.1.23.0\lib\winrt45\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Newtonsoft.Json.4.5.7\lib\winrt45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="SuiteValue.UI.Metro, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\SuiteValue.UI.Metro.0.0.2-rc\lib\winrt\SuiteValue.UI.Metro.dll</HintPath>
-    </Reference>
-    <Reference Include="SuiteValue.UI.Metro.TwitterAuthentication">
-      <HintPath>..\..\packages\SuiteValue.UI.Metro.TwitterAuthentication.0.0.1-rc\lib\winrt45\SuiteValue.UI.Metro.TwitterAuthentication.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Composition.AttributedModel, Version=1.0.11.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Composition.1.0.11-rc\lib\netcore45\System.Composition.AttributedModel.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Composition.Convention, Version=1.0.11.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Composition.1.0.11-rc\lib\netcore45\System.Composition.Convention.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Composition.Hosting, Version=1.0.11.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Composition.1.0.11-rc\lib\netcore45\System.Composition.Hosting.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Composition.Runtime, Version=1.0.11.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Composition.1.0.11-rc\lib\netcore45\System.Composition.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Composition.TypedParts, Version=1.0.11.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Composition.1.0.11-rc\lib\netcore45\System.Composition.TypedParts.dll</HintPath>
+      <HintPath>..\..\packages\SuiteValue.UI.Metro.0.0.3-rc\lib\winrt\SuiteValue.UI.Metro.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">

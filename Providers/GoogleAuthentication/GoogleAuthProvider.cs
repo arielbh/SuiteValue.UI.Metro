@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using CodeValue.SuiteValue.UI.Metro.Authentication;
+using CodeValue.SuiteValue.UI.Metro.Authentications;
 using Newtonsoft.Json;
 using Windows.Security.Authentication.Web;
 
@@ -55,7 +55,16 @@ namespace CodeValue.SuiteValue.UI.Metro.GoogleAuthentication
                 result.EnsureSuccessStatusCode();
                 var json = await result.Content.ReadAsStringAsync();
                 var user = JsonConvert.DeserializeObject<User>(json);
-                return new UserInfo {Id = user.id, Name = user.name, DisplayName = user.name};
+                string handle = null;
+                if (user != null && !string.IsNullOrEmpty(user.email))
+                {
+                    var emailParts = user.email.Split('@');
+                    if (emailParts.Length == 2)
+                    {
+                        handle = emailParts[0];
+                    }
+                }
+                if (user != null) return new UserInfo {Id = user.id, Name = user.name, UserName = handle ?? user.name};
             }
             return null;
 
@@ -89,6 +98,8 @@ namespace CodeValue.SuiteValue.UI.Metro.GoogleAuthentication
         public string id { get; set; }
         [DataMember]
         public string name { get; set; }
+        [DataMember]
+        public string email { get; set; }
     }
 
     [DataContract]

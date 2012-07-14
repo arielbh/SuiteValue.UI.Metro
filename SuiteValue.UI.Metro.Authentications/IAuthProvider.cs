@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 
-namespace CodeValue.SuiteValue.UI.Metro.Authentication
+namespace CodeValue.SuiteValue.UI.Metro.Authentications
 {
     public interface IAuthProvider
     {

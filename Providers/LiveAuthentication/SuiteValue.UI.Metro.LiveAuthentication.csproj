@@ -111,6 +111,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Newtonsoft.Json.4.5.7\lib\winrt45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="SuiteValue.UI.Metro.Authentications">
+      <HintPath>..\..\packages\SuiteValue.UI.Metro.Authentications.0.0.2-rc\lib\winrt45\SuiteValue.UI.Metro.Authentications.dll</HintPath>
+    </Reference>
     <Reference Include="System.Composition.AttributedModel, Version=1.0.11.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.Composition.1.0.11-rc\lib\netcore45\System.Composition.AttributedModel.dll</HintPath>
@@ -134,12 +137,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\SuiteValue.UI.Metro\SuiteValue.UI.Metro.csproj">
-      <Project>{9d8a0826-25b4-4c86-a625-7409c05ec6d7}</Project>
-      <Name>SuiteValue.UI.Metro</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="LiveSDKXAML, Version=5.0">

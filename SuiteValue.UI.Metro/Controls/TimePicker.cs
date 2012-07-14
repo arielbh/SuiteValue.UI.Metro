@@ -68,19 +68,19 @@ namespace CodeValue.SuiteValue.UI.Metro.Controls
 
         private void UpdateToValue()
         {
-            if (_minutes != null)
+            if (_minutes != null && SelectedHour != null && SelectedMinutes != null)
             {
                 var oldValue = Value;
-                var date = new DateTime(Value.Year, Value.Month, Value.Day, SelectedHour, SelectedMinutes, Value.Second,
+                var date = new DateTime(Value.Year, Value.Month, Value.Day, SelectedHour.Value, SelectedMinutes.Value, Value.Second,
                                         Value.Kind);
                 Value = date;
                 OnValueChanged(new ValueChangedEventArgs(oldValue, Value));
             }
         }
 
-        private int _selectedHour;
+        private int? _selectedHour;
 
-        public int SelectedHour
+        public int? SelectedHour
         {
             get { return _selectedHour; }
             set
@@ -157,9 +157,9 @@ namespace CodeValue.SuiteValue.UI.Metro.Controls
             }
         }
 
-        private int _selectedMinutes;
+        private int? _selectedMinutes;
 
-        public int SelectedMinutes
+        public int? SelectedMinutes
         {
             get { return _selectedMinutes; }
             set

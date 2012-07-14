@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using CodeValue.SuiteValue.UI.Metro.Authentication;
+using CodeValue.SuiteValue.UI.Metro.Authentications;
 using Newtonsoft.Json;
 using Windows.Security.Authentication.Web;
 using Windows.Security.Cryptography;
@@ -168,7 +168,7 @@ namespace CodeValue.SuiteValue.UI.Metro.TwitterAuthentication
                 var result = await RequestToken(parameters[0], parameters[1], _oAuthTokenSecret);
                 var user = await RequestUser(result);
 
-                return new UserInfo {Id = user.id, Name = user.name, DisplayName = user.screen_name};
+                return new UserInfo {Id = user.id, Name = user.name, UserName = user.screen_name};
             }
             return null;
         }

@@ -12,7 +12,7 @@
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
                         <StackPanel x:Name="layout" Orientation="{TemplateBinding Orientation}">
-                            <ComboBox Margin="5" x:Name="Months" ItemsSource="{Binding MonthsNames, Mode=OneTime, RelativeSource={RelativeSource TemplatedParent}}" SelectedItem="{Binding SelectedMonthName, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"  />
+                            <ComboBox Margin="5" x:Name="Months" SelectedItem="{Binding SelectedMonthName, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"  />
                             <ComboBox Margin="5" x:Name="Days" ItemsSource="{Binding DaysOptions, RelativeSource={RelativeSource TemplatedParent}}" SelectedItem="{Binding SelectedDay, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
                             <ComboBox Margin="5" x:Name="Years" SelectedItem="{Binding SelectedYear, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
                         </StackPanel>
