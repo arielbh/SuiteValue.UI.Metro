@@ -98,29 +98,18 @@ namespace AuthenticationSample
 
             dynamic result = new ExpandoObject();
 
-            //result.TwitterClientId = "YOUR_APP_ID";
-            //result.TwitterClientSecret = "YOUR_APP_CLIENT_SECRET";
-            //result.TwitterRedirectUrl = "http://contoso.net";
+            result.TwitterClientId = "YOUR_APP_ID";
+            result.TwitterClientSecret = "YOUR_APP_CLIENT_SECRET";
+            result.TwitterRedirectUrl = "http://contoso.net";
 
-            //result.GoogleClientId = "YOUR_APP_ID";
-            //result.GoogleRedirectUrl = "urn:ietf:wg:oauth:2.0:oob";
-            //result.GoogleClientSecret = "YOUR_APP_CLIENT_SECRET";
-
-            //result.FacebookClientId = "YOUR_APP_ID";
-            //result.FacebookRedirectUrl = "http://contoso.net";
-            //return result;
-
-            result.TwitterClientId = "CrDtz7klI7SpcRDeVguw";
-            result.TwitterClientSecret = "ZnMkSsr3YWhtyVhQ72eednDD1ydyUjp45EAJnSfo";
-            result.TwitterRedirectUrl = "http://codevalue.net";
-
-            result.GoogleClientId = "57344658982.apps.googleusercontent.com";
+            result.GoogleClientId = "YOUR_APP_ID";
             result.GoogleRedirectUrl = "urn:ietf:wg:oauth:2.0:oob";
-            result.GoogleClientSecret = "QkjNbmTUsiDVCN2bFU_5fIGE";
+            result.GoogleClientSecret = "YOUR_APP_CLIENT_SECRET";
 
-            result.FacebookClientId = "405656449480871";
-            result.FacebookRedirectUrl = "http://codevalue.net";
+            result.FacebookClientId = "YOUR_APP_ID";
+            result.FacebookRedirectUrl = "http://contoso.net";
             return result;
+
         }
     }
 
