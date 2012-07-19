@@ -10,6 +10,9 @@ namespace CodeValue.SuiteValue.UI.Metro.Framework
     public class NavigationViewModelBase<TNavigationParameter> : AsyncViewModelBase, INavigationViewModel
     {
         #region INavigationViewModel
+
+        public bool RegisteredForNavigation { get; set; }
+
         void INavigationViewModel.OnNavigatedTo(NavigationMode mode, object parameter)
         {
             TNavigationParameter obj = default(TNavigationParameter);

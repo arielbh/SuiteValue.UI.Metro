@@ -115,6 +115,7 @@
     <Compile Include="Controls\DatePicker.cs" />
     <Compile Include="Controls\FlexableGridView.cs" />
     <Compile Include="Controls\TimePicker.cs" />
+    <Compile Include="Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="Framework\AsyncViewModelBase.cs" />
     <Compile Include="Framework\DelegateCommand.cs" />
     <Compile Include="Framework\INavigationViewModel.cs" />

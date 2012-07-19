@@ -5,7 +5,7 @@ namespace CodeValue.SuiteValue.UI.Metro.Framework
 {
     public class AsyncViewModelBase: ViewModelBase
     {
-        private Visibility _showMainContent;
+        private Visibility _showMainContent = Visibility.Visible;
 
         public Visibility ShowMainContent
         {
@@ -20,7 +20,7 @@ namespace CodeValue.SuiteValue.UI.Metro.Framework
             }
         }
 
-        private Visibility _showProgressBar;
+        private Visibility _showProgressBar = Visibility.Collapsed;
 
         public Visibility ShowProgressBar
         {

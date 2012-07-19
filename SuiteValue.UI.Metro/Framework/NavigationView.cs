@@ -14,10 +14,6 @@ namespace CodeValue.SuiteValue.UI.Metro.Framework
             set { SetValue(ViewModelProperty, value); }
         }
 
-        public NavigationView()
-        {
-
-        }
         // Using a DependencyProperty as the backing store for ViewModel.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(
@@ -36,10 +32,11 @@ namespace CodeValue.SuiteValue.UI.Metro.Framework
                 oldViewModel.RequestNavigateBack -= ViewModel_RequestNavigateBack;
             }
 
-            if (newViewModel != null)
+            if (newViewModel != null && !newViewModel.RegisteredForNavigation)
             {
                 newViewModel.RequestNavigateTo += ViewModel_RequestNavigateTo;
                 newViewModel.RequestNavigateBack += ViewModel_RequestNavigateBack;
+                newViewModel.RegisteredForNavigation = true;
             }
 
             DataContext = newViewModel;

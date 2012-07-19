@@ -20,6 +20,7 @@ namespace CodeValue.SuiteValue.UI.Metro.Framework
     {
         event EventHandler<NavigationEventArgs> RequestNavigateTo;
         event EventHandler<EventArgs> RequestNavigateBack;
+        bool RegisteredForNavigation { get; set; }
 
         void OnNavigatedTo(NavigationMode mode, object parameter);
         bool OnNavigatingFrom(NavigationMode mode);
