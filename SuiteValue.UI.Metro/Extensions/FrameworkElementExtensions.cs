@@ -11,17 +11,14 @@ namespace CodeValue.SuiteValue.UI.Metro.Extensions
 
             while (currentElement != null)
             {
-                resource = currentElement.TryFindResource(resourceKey);
-                if (resource != null)
+                if(currentElement.Resources.TryGetValue(resourceKey,out resource))
                 {
                     return resource;
                 }
-
                 currentElement = currentElement.Parent as FrameworkElement;
+                return currentElement.TryFindResource(resourceKey);
             }
-
-            Application.Current.Resources.TryGetValue(resourceKey, out resource);
-            return resource;
+            return Application.Current.Resources.TryGetValue(resourceKey, out resource)?resource:null;
         }
     }
 }
