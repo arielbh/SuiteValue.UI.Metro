@@ -29,11 +29,28 @@ namespace CodeValue.SuiteValue.UI.Metro.TwitterAuthentication
         private string _oAuthToken;
         private string _oAuthTokenSecret;
 
+        public string OAuthTokenSecret
+        {
+            get
+            {
+                return this._oAuthTokenSecret;
+            }
+        }
+
+        public string OAuthToken
+        {
+            get
+            {
+                return this._oAuthToken;
+            }
+        }
+
         public void Configure(dynamic configuration)
         {
             _clientId = configuration.TwitterClientId;
             _clientSecret = configuration.TwitterClientSecret;
             _redirectUrl = configuration.TwitterRedirectUrl;
+            _redirectUrl = _redirectUrl.TrimEnd('/');
         }
 
         private void ExtractOAuthToken(string content)
@@ -92,7 +109,8 @@ namespace CodeValue.SuiteValue.UI.Metro.TwitterAuthentication
                 var p = pair.Split('=');
                 accessToken.Add(p[0], p[1]);
             }
-
+            _oAuthToken = accessToken["oauth_token"];
+            _oAuthTokenSecret = accessToken["oauth_token_secret"];
             return accessToken["user_id"];
         }
 
