@@ -17,6 +17,7 @@ namespace CodeValue.SuiteValue.UI.Metro.FacebookAuthentication
 
         private string _clientId;
         private string _redirectUrl;
+        public string Token { get; private set; }
 
         public void Configure(dynamic configuration)
         {
@@ -42,10 +43,10 @@ namespace CodeValue.SuiteValue.UI.Metro.FacebookAuthentication
                 var expires = "&expires";
                 var expiresIndex = webAuthenticationResult.ResponseData.IndexOf(expires);
                 var index = webAuthenticationResult.ResponseData.IndexOf(target) + target.Length;
-                var token = webAuthenticationResult.ResponseData.Substring(index, expiresIndex - index);
+                Token = webAuthenticationResult.ResponseData.Substring(index, expiresIndex - index);
 
                 var client = new HttpClient();
-                var result = await client.GetAsync(UserUrl+"?access_token=" + token);
+                var result = await client.GetAsync(UserUrl+"?access_token=" + Token);
                 result.EnsureSuccessStatusCode();
                 var json = await result.Content.ReadAsStringAsync();
                 var user = JsonConvert.DeserializeObject<User>(json);

@@ -34,6 +34,7 @@ http://msdn.microsoft.com/en-us/live/ff621310.aspx
     GoogleClientId- should be available after completing app registration.
     GoogleClientSecret - should be available after completing app registration.
     GoogleRedirectUrl - should be "urn:ietf:wg:oauth:2.0:oob"
+    GoogleScope - optional, you can specify more scopes to request approval from user.
 
 
 ## Configuring your app to be used with Facebook

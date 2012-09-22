@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using CodeValue.SuiteValue.UI.Metro.Authentications;
+using Microsoft.CSharp.RuntimeBinder;
 using Newtonsoft.Json;
 using Windows.Security.Authentication.Web;
 
@@ -17,23 +18,34 @@ namespace CodeValue.SuiteValue.UI.Metro.GoogleAuthentication
         private const string ApprovalUrl = "https://accounts.google.com/o/oauth2/approval?";
         private const string UserInfoUrl = "https://www.googleapis.com/oauth2/v1/userinfo";
         private const string TokenUrl = "https://accounts.google.com/o/oauth2/token";
-        private const string Scope =
-            "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
+        private const string DefaultScope =
+            "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile ";
         private string _clientId;
         private string _redirectId;
         private string _clientSecret;
+        private string _scope;
+        
+        public string Token { get; private set; }
 
         public void Configure(dynamic configuration)
         {
             _clientId = configuration.GoogleClientId;
             _redirectId = configuration.GoogleRedirectUrl;
             _clientSecret = configuration.GoogleClientSecret;
+            try
+            {
+                _scope = DefaultScope + configuration.GoogleScope;
+            }
+            catch (RuntimeBinderException)
+            {
+                // GoogleScope doesn't exist.
+                _scope = DefaultScope;
+            }
         }
-
         public async Task<UserInfo> Authenticate()
         {
             var googleUrl = AuthorizationUrl + "?client_id=" + Uri.EscapeDataString(_clientId) + "&redirect_uri="
-                + Uri.EscapeDataString(_redirectId) + "&response_type=code&scope=" + Uri.EscapeDataString(Scope);
+                + Uri.EscapeDataString(_redirectId) + "&response_type=code&scope=" + Uri.EscapeDataString(_scope);
 
             var startUri = new Uri(googleUrl);
             // When using the desktop flow, the success code is displayed in the html title of this end uri
@@ -48,9 +60,9 @@ namespace CodeValue.SuiteValue.UI.Metro.GoogleAuthentication
             if (webAuthenticationResult.ResponseStatus == WebAuthenticationStatus.Success)
             {
                 var code = webAuthenticationResult.ResponseData.Remove(0, 13);
-                var token = await RequestToken(_clientId, code);
+                Token = await RequestToken(_clientId, code);
                 var client = new HttpClient();
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
                 var result = await client.GetAsync(UserInfoUrl);
                 result.EnsureSuccessStatusCode();
                 var json = await result.Content.ReadAsStringAsync();
