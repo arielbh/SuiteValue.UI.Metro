@@ -99,12 +99,13 @@ namespace CodeValue.SuiteValue.UI.Metro.GoogleAuthentication
             var json = await result.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<Token>(json);
         }
-        public async Task<string> RefreshTokenAsync(string RefreshToken)
+
+        public async Task<string> RefreshTokenAsync(string refreshToken)
         {
             HttpMessageHandler handler = new HttpClientHandler();
 
             var httpClient = new HttpClient(handler);
-            string postData = string.Format("client_id={0}&client_secret={1}&refresh_token={2}&grant_type=refresh_token", _clientId, _clientSecret, RefreshToken);
+            string postData = string.Format("client_id={0}&client_secret={1}&refresh_token={2}&grant_type=refresh_token", _clientId, _clientSecret, refreshToken);
             var c = new StringContent(postData, Encoding.UTF8, "application/x-www-form-urlencoded");
 
             httpClient.MaxResponseContentBufferSize = 100000;
