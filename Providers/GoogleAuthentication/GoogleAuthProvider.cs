@@ -25,7 +25,8 @@ namespace CodeValue.SuiteValue.UI.Metro.GoogleAuthentication
         private string _clientSecret;
         private string _scope;
         
-        public string Token { get; private set; }
+        public string AccessToken { get; private set; }
+        public string RefreshToken { get; private set; }
 
         public void Configure(dynamic configuration)
         {
@@ -60,9 +61,11 @@ namespace CodeValue.SuiteValue.UI.Metro.GoogleAuthentication
             if (webAuthenticationResult.ResponseStatus == WebAuthenticationStatus.Success)
             {
                 var code = webAuthenticationResult.ResponseData.Remove(0, 13);
-                Token = await RequestToken(_clientId, code);
+                Token token = await RequestToken(_clientId, code);
+                AccessToken = token.access_token;
+                RefreshToken = token.refresh_token;
                 var client = new HttpClient();
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + Token);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token.access_token);
                 var result = await client.GetAsync(UserInfoUrl);
                 result.EnsureSuccessStatusCode();
                 var json = await result.Content.ReadAsStringAsync();
@@ -81,7 +84,7 @@ namespace CodeValue.SuiteValue.UI.Metro.GoogleAuthentication
             return null;
 
         }
-        public async Task<string> RequestToken(string clientId, string key)
+        public async Task<Token> RequestToken(string clientId, string key)
         {
             HttpMessageHandler handler = new HttpClientHandler();
             
@@ -94,7 +97,23 @@ namespace CodeValue.SuiteValue.UI.Metro.GoogleAuthentication
             var result = await httpClient.PostAsync(TokenUrl, c);
             result.EnsureSuccessStatusCode();
             var json = await result.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<Token>(json).access_token;
+            return JsonConvert.DeserializeObject<Token>(json);
+        }
+        public async Task<string> RefreshTokenAsync(string RefreshToken)
+        {
+            HttpMessageHandler handler = new HttpClientHandler();
+
+            var httpClient = new HttpClient(handler);
+            string postData = string.Format("client_id={0}&client_secret={1}&refresh_token={2}&grant_type=refresh_token", _clientId, _clientSecret, RefreshToken);
+            var c = new StringContent(postData, Encoding.UTF8, "application/x-www-form-urlencoded");
+
+            httpClient.MaxResponseContentBufferSize = 100000;
+
+            var result = await httpClient.PostAsync(TokenUrl, c);
+            result.EnsureSuccessStatusCode();
+            var json = await result.Content.ReadAsStringAsync();
+            AccessToken = JsonConvert.DeserializeObject<Token>(json).access_token;
+            return AccessToken;
         }
 
         public string Name
