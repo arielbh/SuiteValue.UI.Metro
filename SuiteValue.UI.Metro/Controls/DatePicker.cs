@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -66,6 +67,7 @@ namespace CodeValue.SuiteValue.UI.Metro.Controls
         private static void OrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
 
+
         }
 
 
@@ -73,15 +75,22 @@ namespace CodeValue.SuiteValue.UI.Metro.Controls
         private ComboBox _days;
         private ComboBox _years;
 
+        
+
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
+            Unloaded += DatePicker_Unloaded;
             _selectedMonth = Value.Month - 1;
             _selectedDay = Value.Day;
             _selectedYear = Value.Year;
 
             _months = GetTemplateChild("Months") as ComboBox;
             if (_months != null) _months.ItemsSource = MonthsNames;
+
+            Window.Current.SizeChanged += Current_SizeChanged;
+
+
             _days = GetTemplateChild("Days") as ComboBox;
             _years = GetTemplateChild("Years") as ComboBox;
             if (_years != null) _years.ItemsSource = Enumerable.Range(DateTime.Now.Year - 100, 200);
@@ -93,6 +102,25 @@ namespace CodeValue.SuiteValue.UI.Metro.Controls
             OnPropertyChanged("SelectedYear");
 
         }
+
+        void DatePicker_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Unloaded -= DatePicker_Unloaded;
+            Window.Current.SizeChanged -= Current_SizeChanged;
+            
+        }
+
+        void Current_SizeChanged(object sender, Windows.UI.Core.WindowSizeChangedEventArgs e)
+        {
+            if (ApplicationView.Value == ApplicationViewState.Snapped && _months != null)
+            {
+                var index = _months.SelectedIndex;
+                _months.ItemsSource = ShortMonthsNames;
+                _months.SelectedIndex = index;
+            }
+            else _months.ItemsSource = MonthsNames; 
+                       
+        }              
 
         private void UpdateToValue()
         {
@@ -133,7 +161,16 @@ namespace CodeValue.SuiteValue.UI.Metro.Controls
                 if (value != _selectedMonthName)
                 {
                     _selectedMonthName = value;
-                    SelectedMonth = Array.IndexOf(MonthsNames, value);
+                    if (ApplicationView.Value == ApplicationViewState.Snapped)
+                    {
+                        SelectedMonth = Array.IndexOf(ShortMonthsNames, value);
+                        
+                    }
+                    else
+                    {
+                        SelectedMonth = Array.IndexOf(MonthsNames, value);
+                        
+                    }
                     UpdateToValue();
                 }
                 OnPropertyChanged("SelectedMonthName");
@@ -220,6 +257,8 @@ namespace CodeValue.SuiteValue.UI.Metro.Controls
 
 
         public readonly string[] MonthsNames = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+        public readonly string[] ShortMonthsNames = { "Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec" };
+
 
 
         public event PropertyChangedEventHandler PropertyChanged;

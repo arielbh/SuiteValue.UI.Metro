@@ -156,7 +156,7 @@
     </Reference>
     <Reference Include="SuiteValue.UI.Metro, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\SuiteValue.UI.Metro.0.0.3-rc\lib\winrt\SuiteValue.UI.Metro.dll</HintPath>
+      <HintPath>..\..\packages\SuiteValue.UI.Metro.0.0.3.7\lib\winrt\SuiteValue.UI.Metro.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
