@@ -71,7 +71,7 @@ namespace CodeValue.SuiteValue.UI.Metro.Controls
             if (_minutes != null && SelectedHour != null && SelectedMinutes != null)
             {
                 int hour = SelectedHour.Value;
-                if ( Kind == PeriodKind.H12 && SelectedPeriod == "PM" ) hour += 12;
+                if ( Kind == PeriodKind.H12 && SelectedPeriod == "PM" ) hour = (hour + 12) % 24;
 
                 var oldValue = Value;
                 Value = new DateTime(
