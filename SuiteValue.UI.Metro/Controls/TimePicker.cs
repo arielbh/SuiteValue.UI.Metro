@@ -71,11 +71,16 @@ namespace CodeValue.SuiteValue.UI.Metro.Controls
             if (_minutes != null && SelectedHour != null && SelectedMinutes != null)
             {
                 int hour = SelectedHour.Value;
-                if ( Kind == PeriodKind.H12 && SelectedPeriod == "PM" ) hour = (hour + 12) % 24;
+                if ( Kind == PeriodKind.H12 ) {
+                    if ( _selectedPeriod == "PM" && hour != 12 )
+                        hour += 12;
+                    else if ( _selectedPeriod == "AM" && hour == 12 )
+                        hour = 0;
+                }
 
                 var oldValue = Value;
                 Value = new DateTime(
-                    Value.Year, Value.Month, Value.Day, hour, SelectedMinutes.Value, Value.Second, Value.Kind
+                    oldValue.Year, oldValue.Month, oldValue.Day, hour, SelectedMinutes.Value, oldValue.Second, oldValue.Kind
                 );
                 OnValueChanged(new ValueChangedEventArgs(oldValue, Value));
             }
