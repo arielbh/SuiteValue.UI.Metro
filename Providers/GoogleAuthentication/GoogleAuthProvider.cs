@@ -15,7 +15,7 @@ namespace CodeValue.SuiteValue.UI.Metro.GoogleAuthentication
     public class GoogleAuthProvider : IAuthProvider
     {
         private const string AuthorizationUrl = "https://accounts.google.com/o/oauth2/auth";
-        private const string ApprovalUrl = "https://accounts.google.com/o/oauth2/approval?";
+        private const string ApprovalUrl = "https://accounts.google.com/o/oauth2/approval";
         private const string UserInfoUrl = "https://www.googleapis.com/oauth2/v1/userinfo";
         private const string TokenUrl = "https://accounts.google.com/o/oauth2/token";
         private const string DefaultScope =
